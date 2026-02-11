@@ -7,3 +7,10 @@ conn = psycopg2.connect(
     password="Ford6000$$$...",
     dbname="myduka_db",
 )
+
+
+cur = conn.cursor()
+
+cur.execute("select * from products")
+products = cur.fetchall()
+print(products)
