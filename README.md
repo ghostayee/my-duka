@@ -30,4 +30,6 @@ CREATE TABLE sales (
     pid INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
     quantity INTEGER NOT NULL CHECK (quantity > 0),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+)
+
+own shit on mysql shell master the basic of it.
