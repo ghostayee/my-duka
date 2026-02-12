@@ -12,5 +12,5 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 cur.execute("select * from products")
-row = cur.fetchall()
-print(row)
+products = cur.fetchall()
+print(products)

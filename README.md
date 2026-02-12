@@ -58,7 +58,24 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 on execution of queries
+
 cur.execute("SELECT * FROM products;")
 rows = cur.fetchall()
-for row in rows:
-    print(row)
+print(rows)
+
+
+what are the time when NOT NULL cannot apply.
+like email not everybody has email
+
+date when inserting teh year comes first thn month then day
+year, month, day with DATE as reserved word.
+
+selling_price NUMERIC(20, 2) NOT NULL CHECK (selling_price >= 0)
+==> the 20 means max length digits including the decimals.
+==> 2 decimal places
+==> numeric specifies the data type.
+==> checks ensures that no negative price.
+==> serial automatically generates id.
+==> primary key
+
+NB\ REFERENCES products(id) creates a foreign key linking this table to the id column in the products table. This enforces relational integrity: the pid must exist in products.
