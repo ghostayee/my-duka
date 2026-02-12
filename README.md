@@ -33,3 +33,32 @@ CREATE TABLE sales (
 )
 
 own shit on mysql shell master the basic of it.
+
+
+on the task to brush on NB
+==>basic commands in sql
+  SELECT ==> retrieve data
+  INSERT INTO ==> add new record
+  UPDATE ==> modify existing record
+  DELETE ==> remove records.
+
+WHERE ==> filters rows
+ORDER BY ==> sort results
+GROUP BY ==> aggregate rows
+JOIN ==> combine data g=from multiple tables
+
+import psycopg2
+conn = psycopg2.connect(
+    host="localhost",
+    port=5432,
+    user="postgres",
+    password="mypassword",
+    dbname="mydb"
+)
+cur = conn.cursor()
+
+on execution of queries
+cur.execute("SELECT * FROM products;")
+rows = cur.fetchall()
+for row in rows:
+    print(row)
