@@ -5,7 +5,7 @@ conn = psycopg2.connect(
     port="5432",
     user="postgres",
     password="Ford6000$$$...",
-    dbname="myduka_db",
+    dbname="myduka_db"
 )
 
 

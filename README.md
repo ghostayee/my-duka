@@ -90,6 +90,6 @@ where clause. its a condition.
 
 
 
-insert syntax 
+insert syntax
 
 insert into table_name(column1, .........)values(value1.....)
