@@ -29,12 +29,14 @@ products = get_products()
 print(products)
 
 def insert_products(values):
-    cur.execute("insert into products(name,buying_price,selling_price)values{values}")
+    cur.execute(f"insert into products(name,buying_price,selling_price)values{values}")
     conn.commit()
 
 
 
 product1 = ('butter',90,95)
 product2 = ('iphone',455,470)
+product3 = ('lite',400,450)
 
 insert_products(product1)
+insert_products(product2)
