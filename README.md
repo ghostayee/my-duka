@@ -79,3 +79,17 @@ selling_price NUMERIC(20, 2) NOT NULL CHECK (selling_price >= 0)
 ==> primary key
 
 NB\ REFERENCES products(id) creates a foreign key linking this table to the id column in the products table. This enforces relational integrity: the pid must exist in products.
+
+ON DELETE CASCADE means if a product is deleted from products, all rows in this table with that pid will also be automatically deleted. This prevents orphan records
+date '1990-12-31'
+
+delete from deletes the data but keeps the structure
+where clause. its a condition.
+
+
+
+
+
+insert syntax 
+
+insert into table_name(column1, .........)values(value1.....)
