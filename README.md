@@ -93,3 +93,15 @@ where clause. its a condition.
 insert syntax
 
 insert into table_name(column1, .........)values(value1.....)
+
+
+the sql \d looks out at the table.
+==>  what happens when a file name will pip still works.
+==> on closing cur.close() and conn.close()  use to disconnect a connection.
+
+the task on extraction of data and profit.
+sales per product group by product sum units x selling price
+sales per day group by date
+
+==> profit per product
+==> profit per day

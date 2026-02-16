@@ -66,10 +66,11 @@ def sales_made():
     conn.commit()
     print("sales successfully recorded")
 
-sales_made()
+#sales_made()
 
 
 def sales():
     cur.execute("select * from sales")
     data = cur.fetchall()
     print(data)
+
