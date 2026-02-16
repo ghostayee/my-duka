@@ -58,7 +58,7 @@ def insert_data(item, buying, selling):
 insert_data(item, buying, selling)"""
 
 # task on get data from the sales table.
-pid = int(input("ProductID"))
+pid = int(input("ProductID:"))
 quantity = int(input("Enter number sold:"))
 
 def sales_made():
@@ -66,11 +66,72 @@ def sales_made():
     conn.commit()
     print("sales successfully recorded")
 
-#sales_made()
+sales_made()
 
 
 def sales():
     cur.execute("select * from sales")
     data = cur.fetchall()
     print(data)
+
+
+print("\nSALES PER PRODUCT")
+cur.execute("""
+SELECT p.name,
+       SUM(s.quantity) AS total_quantity_sold
+FROM sales s
+JOIN products p ON s.pid = p.id
+GROUP BY p.name
+""")
+
+for row in cur.fetchall():
+    print(f"Product: {row[0]}, Total Sold: {row[1]}")
+
+
+# 2. Sales per day
+print("\nSALES PER DAY")
+cur.execute("""
+SELECT DATE(s.created_at) AS sale_date,
+       SUM(s.quantity) AS total_quantity_sold
+FROM sales s
+GROUP BY DATE(s.created_at)
+ORDER BY sale_date
+""")
+
+for row in cur.fetchall():
+    print(f"Date: {row[0]}, Total Sold: {row[1]}")
+
+
+# 3. Profit per product
+print("\nPROFIT PER PRODUCT")
+cur.execute("""
+SELECT p.name,
+       SUM((p.selling_price - p.buying_price) * s.quantity) AS total_profit
+FROM sales s
+JOIN products p ON s.pid = p.id
+GROUP BY p.name
+""")
+
+for row in cur.fetchall():
+    print(f"Product: {row[0]}, Profit: {row[1]}")
+
+
+# 4. Profit per day
+print("\nPROFIT PER DAY")
+cur.execute("""
+SELECT DATE(s.created_at) AS sale_date,
+       SUM((p.selling_price - p.buying_price) * s.quantity) AS total_profit
+FROM sales s
+JOIN products p ON s.pid = p.id
+GROUP BY DATE(s.created_at)
+ORDER BY sale_date
+""")
+
+for row in cur.fetchall():
+    print(f"Date: {row[0]}, Profit: {row[1]}")
+
+
+cur.close()
+conn.close()
+
 
