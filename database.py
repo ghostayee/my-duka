@@ -5,7 +5,7 @@ conn = psycopg2.connect(
     port="5432",
     user="postgres",
     password="Ford6000$$$...",
-    dbname="myduka_db"
+    dbname="myduka_db",
 )
 
 
@@ -57,16 +57,18 @@ def insert_data(item, buying, selling):
 
 insert_data(item, buying, selling)"""
 
-# task on get data from the sales table.
+# task on get data from the sales table and products.
 pid = int(input("ProductID:"))
 quantity = int(input("Enter number sold:"))
+
 
 def sales_made():
     cur.execute(f"insert into sales(pid,quantity)values({pid},{quantity})")
     conn.commit()
     print("sales successfully recorded")
 
-sales_made()
+
+# sales_made()
 
 
 def sales():
@@ -76,62 +78,70 @@ def sales():
 
 
 print("\nSALES PER PRODUCT")
-cur.execute("""
+cur.execute(
+    """
 SELECT p.name,
-       SUM(s.quantity) AS total_quantity_sold
+    SUM(s.quantity) AS total_quantity_sold
 FROM sales s
 JOIN products p ON s.pid = p.id
 GROUP BY p.name
-""")
+"""
+)
 
 for row in cur.fetchall():
     print(f"Product: {row[0]}, Total Sold: {row[1]}")
 
 
-# 2. Sales per day
+# Sales per day
 print("\nSALES PER DAY")
-cur.execute("""
+cur.execute(
+    """
 SELECT DATE(s.created_at) AS sale_date,
-       SUM(s.quantity) AS total_quantity_sold
+    SUM(s.quantity) AS total_quantity_sold
 FROM sales s
 GROUP BY DATE(s.created_at)
 ORDER BY sale_date
-""")
+"""
+)
 
 for row in cur.fetchall():
     print(f"Date: {row[0]}, Total Sold: {row[1]}")
 
 
-# 3. Profit per product
+# Profit per product
 print("\nPROFIT PER PRODUCT")
-cur.execute("""
+cur.execute(
+    """
 SELECT p.name,
        SUM((p.selling_price - p.buying_price) * s.quantity) AS total_profit
 FROM sales s
 JOIN products p ON s.pid = p.id
 GROUP BY p.name
-""")
+"""
+)
 
 for row in cur.fetchall():
     print(f"Product: {row[0]}, Profit: {row[1]}")
 
 
-# 4. Profit per day
+# Profit per day
 print("\nPROFIT PER DAY")
-cur.execute("""
+cur.execute(
+    """
 SELECT DATE(s.created_at) AS sale_date,
        SUM((p.selling_price - p.buying_price) * s.quantity) AS total_profit
 FROM sales s
 JOIN products p ON s.pid = p.id
 GROUP BY DATE(s.created_at)
 ORDER BY sale_date
-""")
+"""
+)
 
 for row in cur.fetchall():
     print(f"Date: {row[0]}, Profit: {row[1]}")
 
-
-cur.close()
-conn.close()
-
-
+#necessary for this
+#==>
+#==>
+#cur.close()
+#conn.close()
