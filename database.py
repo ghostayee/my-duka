@@ -143,5 +143,5 @@ for row in cur.fetchall():
 #necessary for this
 #==>
 #==>
-#cur.close()
-#conn.close()
+cur.close()
+conn.close()
