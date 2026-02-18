@@ -6,9 +6,13 @@ class BankAccount:
         self.date_opened = date_opened
 
     def display_info(self):
-        return self.account_number, self.balance
+        print(
+            f"Account number: {self.account_number}\nBalance: {self.balance}\nYour Name: {self.owner_name}\ndate opened: {self.date_opened}"
+        )
+
 
 from datetime import date
-account1 = BankAccount(128345336,455,"kennedy kim", date.today())
-print(type(account1))
+
+account1 = BankAccount(128345336, 455, "kennedy kim", date.today())
+
 account1.display_info()
