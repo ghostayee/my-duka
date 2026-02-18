@@ -10,8 +10,7 @@ conn = psycopg2.connect(
 
 
 cur = conn.cursor()
-
-"""def get_data(table):
+def get_data(table):
     cur.execute(f"select * from {table}")
     data = cur.fetchall()
     return data
@@ -55,7 +54,7 @@ def insert_data(item, buying, selling):
     print("Data Updated Successfully")
 
 
-insert_data(item, buying, selling)"""
+insert_data(item, buying, selling)
 
 # task on get data from the sales table and products.
 pid = int(input("ProductID:"))
