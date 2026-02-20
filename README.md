@@ -163,3 +163,11 @@ Constructor - a special method used to initialize objects - it is automatically 
 dunder methods - double underscore methods
 
 TASK 1.Create a class called BankAccount with the attributes: - account number , balance , owner name , date opened 2.Add some behaviour to the above class using the methods: - deposit() - withdraw() -display_info() 3.Create 2 BankAccount objects that can deposit , withdraw and display info
+
+
+
+THE WEEKEND RECAP
+python ======> postgres_db through psycopg2.connect()
+the arguments.
+=>host
+=>
