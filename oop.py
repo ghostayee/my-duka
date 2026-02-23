@@ -2,5 +2,5 @@ class Dog:
     def bark(self):
         print("bark")
 
-d = dog()
+d = Dog()
 print(type(d))
