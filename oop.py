@@ -1,2 +1,6 @@
-x = 1
-print(type(x))
+class Dog:
+    def bark(self):
+        print("bark")
+
+d = dog()
+print(type(d))
