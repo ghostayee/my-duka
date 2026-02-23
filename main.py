@@ -1,58 +1,51 @@
-import psycopg2
+from flask import Flask,render_template
+from database import get_products,fetch_sales
 
-conn = psycopg2.connect(
-    host="localhost",
-    port="5432",
-    user="postgres",
-    password="Ford6000$$$...",
-    dbname="my_duka"
-)
+#Flask instance
+app = Flask(__name__)
 
 
-cur = conn.cursor()
-
-def get_data(table):
-    cur.execute(f"select * from {table}")
-    data = cur.fetchall()
-    return data
-
-data = get_data("sales")
-print(data)
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 
-def get_products():
-    cur.execute("select * from products")
-    products = cur.fetchall()
-    return products
-
-products = get_products()
-print(products)
-
-def insert_products(values):
-    cur.execute(f"insert into products(name,buying_price,selling_price)values{values}")
-    conn.commit()
+@app.route('/products')
+def products():
+    products = get_products()
+    return render_template('products.html',products =products)
 
 
 
-product1 = ('butter',90,95)
-product2 = ('iphone',455,470)
-product3 = ('lite',400,450)
-
-insert_products(product1)
-insert_products(product2)
-
-item = input("Item_name:")
-buying = int(input("Buying_price:"))
-selling = int(input("Selling_price:"))
+@app.route('/sales')
+def sales():
+    sales = fetch_sales()
+    return render_template('sales.html',sales = sales)
 
 
-def insert_data(item, buying, selling):
-    cur.execute(
-        "insert into products(name,buying_price,selling_price)values(%s, %s, %s)",
-        (item, buying, selling),
-    )
-    conn.commit()
-    print("Data Updated Successfully")
+
+@app.route('/stock')
+def stock():
+    value = 789
+    numbers = [1,2,3,4,5,6,7,8,9]
+    return render_template('stock.html',x = value,y=numbers)
 
 
-insert_data(item, buying, selling)
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+
+
+
+app.run(debug=True)
