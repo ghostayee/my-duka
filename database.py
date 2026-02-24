@@ -1,5 +1,6 @@
 import psycopg2
 
+# establishes a new db connection
 conn = psycopg2.connect(
     host="localhost",
     port="5432",
@@ -8,15 +9,18 @@ conn = psycopg2.connect(
     dbname="myduka_db",
 )
 
-
+# cursor object
 cur = conn.cursor()
+
+
 def get_data(table):
     cur.execute(f"select * from {table}")
     data = cur.fetchall()
     return data
 
-data = get_data("sales")
-print(data)
+
+# data = get_data("sales")
+# print(data)
 
 
 def get_products():
@@ -24,123 +28,126 @@ def get_products():
     products = cur.fetchall()
     return products
 
-products = get_products()
-print(products)
+
+# products = get_products()
+# print(products)
+
 
 def insert_products(values):
     cur.execute(f"insert into products(name,buying_price,selling_price)values{values}")
     conn.commit()
 
 
-
-product1 = ('butter',90,95)
-product2 = ('iphone',455,470)
-product3 = ('lite',400,450)
+product1 = ("samsung", 20000, 30000)
+product2 = ("hp", 30000, 40000)
 
 insert_products(product1)
-insert_products(product2)
-
-item = input("Item_name:")
-buying = int(input("Buying_price:"))
-selling = int(input("Selling_price:"))
+# insert_products(product2)
 
 
-def insert_data(item, buying, selling):
-    cur.execute(
-        "insert into products(name,buying_price,selling_price)values(%s, %s, %s)",
-        (item, buying, selling),
-    )
-    conn.commit()
-    print("Data Updated Successfully")
-
-
-insert_data(item, buying, selling)
-
-# task on get data from the sales table and products.
-pid = int(input("ProductID:"))
-quantity = int(input("Enter number sold:"))
-
-
-def sales_made():
-    cur.execute(f"insert into sales(pid,quantity)values({pid},{quantity})")
-    conn.commit()
-    print("sales successfully recorded")
-
-
-# sales_made()
-
-
-def sales():
+def fetch_sales():
     cur.execute("select * from sales")
-    data = cur.fetchall()
-    print(data)
+    sales = cur.fetchall()
+    return sales
 
 
-print("\nSALES PER PRODUCT")
-cur.execute(
+sales = fetch_sales()
+print(sales)
+
+
+def insert_sale(values):
+    cur.execute(f"insert into sales(pid,quantity)values{values}")
+    conn.commit()
+
+
+# sale1 = (3,30)
+# sale2 = (4,12)
+
+# insert_sale(sale1)
+# insert_sale(sale2)
+
+# print(sales)
+
+
+def insert_sale(values):
+    cur.execute(f"insert into sales(pid,quantity)values(3,30)")
+    conn.commit()
+
+
+def insert_stock(values):
+    cur.execute("insert into stock(pid,stock_quantity)values(%s,%s)", (11, 30))
+    conn.commit()
+
+
+stock1 = (11, 30)
+insert_stock(stock1)
+
+
+def get_stock():
+    cur.execute("select * from stock")
+    stock = cur.fetchall()
+    return stock
+
+
+stock_data = get_stock()
+print("this is stock", stock_data)
+
+
+def get_sales_per_product():
+    cur.execute(
+        """
+        select products.name as p_name , sum(products.selling_price * sales.quantity) as total_sales
+        from products join sales on sales.pid = products.id group by(p_name);
     """
-SELECT p.name,
-    SUM(s.quantity) AS total_quantity_sold
-FROM sales s
-JOIN products p ON s.pid = p.id
-GROUP BY p.name
-"""
-)
-
-for row in cur.fetchall():
-    print(f"Product: {row[0]}, Total Sold: {row[1]}")
+    )
+    sales_per_product = cur.fetchall()
+    return sales_per_product
 
 
-# Sales per day
-print("\nSALES PER DAY")
-cur.execute(
+# sales_per_product = get_sales_per_product()
+# print(sales_per_product)
+
+
+def get_profit_per_day():
+    cur.execute(
+        """
+        select date(sales.created_at) as date , sum((products.selling_price - products.buying_price)
+     * sales.quantity) as profit from sales join products on products.id = sales.pid group by(date);
     """
-SELECT DATE(s.created_at) AS sale_date,
-    SUM(s.quantity) AS total_quantity_sold
-FROM sales s
-GROUP BY DATE(s.created_at)
-ORDER BY sale_date
-"""
-)
-
-for row in cur.fetchall():
-    print(f"Date: {row[0]}, Total Sold: {row[1]}")
+    )
+    profit_per_day = cur.fetchall()
+    return profit_per_day
 
 
-# Profit per product
-print("\nPROFIT PER PRODUCT")
-cur.execute(
+# profit_per_day = get_profit_per_day()
+# print(profit_per_day)
+
+
+def get_sales_per_day():
+    cur.execute(
+        """
+        select date(sales.created_at) as day ,sum(sales.quantity * products.selling_price) t_sales from sales join
+         products on products.id = sales.pid group by(day)
     """
-SELECT p.name,
-       SUM((p.selling_price - p.buying_price) * s.quantity) AS total_profit
-FROM sales s
-JOIN products p ON s.pid = p.id
-GROUP BY p.name
-"""
-)
-
-for row in cur.fetchall():
-    print(f"Product: {row[0]}, Profit: {row[1]}")
+    )
+    sales_per_day = cur.fetchall()
+    return sales_per_day
 
 
-# Profit per day
-print("\nPROFIT PER DAY")
-cur.execute(
+sales_per_day = get_sales_per_day()
+print(sales_per_day)
+
+
+def get_profit_per_product():
+    cur.execute(
+        """
+        select products.name as p_name , sum((products.selling_price - products.buying_price) * sales.quantity) as profit
+                from sales join products on products.id = sales.pid group by p_name
     """
-SELECT DATE(s.created_at) AS sale_date,
-       SUM((p.selling_price - p.buying_price) * s.quantity) AS total_profit
-FROM sales s
-JOIN products p ON s.pid = p.id
-GROUP BY DATE(s.created_at)
-ORDER BY sale_date
-"""
-)
+    )
+    profit_per_product = cur.fetchall()
+    return profit_per_product
 
-for row in cur.fetchall():
-    print(f"Date: {row[0]}, Profit: {row[1]}")
 
-#necessary for this
-#==>
-#==>
-cur.close()
-conn.close()
+profit_per_product = get_profit_per_product()
+print(profit_per_product)
