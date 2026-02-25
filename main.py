@@ -26,6 +26,7 @@ def add_products():
         new_product = (product_name, buying_price, selling_price)
         insert_products(new_product)
         print("Product Added successfully")
+    return redirect(url_for('products'))
 
 
 @app.route("/sales")

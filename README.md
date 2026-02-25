@@ -325,7 +325,7 @@ TASK
 - insert stock data using placeholders --- %s instead of using f-string (research)
 - fetch stock data
 
-2.Using functions fetch the following data
+  2.Using functions fetch the following data
 
 - sales per day
   -profit per product
@@ -457,8 +457,8 @@ N/B : -> We cant have two routes having the same view function name
 
 _RENDERING HTML PAGES IN FLASK_
 -> Instead of returning single data items , we'd rather return full html pages to the client
--> To render html pages using flask , we use a function called render_template()
--> _Template_ - a single html page
+-> To render html pages using flask , we use a function called render*template()
+-> \_Template* - a single html page
 -> render_template() -> takes as am argument , the name of a html file you wish to return
 
 Project Structure
@@ -540,3 +540,31 @@ TASK
 1.Apply template inheritance across every other page
 
 _RENDERING DATA IN DATA TABLES_
+
+INSERTING DATA FROM A CLIENT
+1.User form in html -contains inputs of data to be inserted e.g.
+inserting products
+-form => inputs => product name, buying price , selling_price, button of type submit
+
+2.Route in main.py to process data insertion e.g @app.route('/add_products) def add_products(): ......
+
+3.An insert function defined in database.py - contains insert query def insert_products(values): ......
+
+Form Checklist in data insertion
+
+1.method attribute Method - determines what a server does to a resource / data
+-> GET - retrieving data from a server
+-> POST - send data to a server
+-> PUT - update an existing resource
+-> DELETE - get rid of a resource
+
+2.action attribute action - determines the route in which form data is submitted - in what route is my form data submitted and processed 
+
+3.name attribute N/B -> Data sent from the form is sent in key-value pairs -> The server needs to know from what input each value came from -> The server uses the key to extract form data filled by the user --> This key is defined by the value of the name attribute 4.input type - determines what data type is filled in an input 5.button -of type submit
+
+"p_name":eggs "b_price":15 "s_price":20
+
+Workflow to insert data 1.User is provided with a form 2.User fills and submits the form 3.Form is submitted to the route specified in action -> the route needs to have methods = ['GET','POST'] - defines what a server can do in this route 4.Form data is extracted by a request object -> request object has access to some methods: => request.method : determines what method is used in the form => request.form : extracts form data from the form using its key(from name attribute)
+5.Data is processed and inserted into your db 6.User is redirected redirect - take a user to another resource redirect() - takes as a parameter another function called url_for => redirect(url_for('name of view function ')) redirect(url_for('products')) 7.Server gives a feedback on the process. status code - special numbers that communicate server actions Categories of status codes 100 - 199 => general informational responses 200 - 299 => successful responses 300 - 399 => redirection messages 400 - 499 => client error 500 - 599 = server error
+
+TASK -> Post sales using a sales form, confirm sales data reflects in sales table
