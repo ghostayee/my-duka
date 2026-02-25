@@ -1,5 +1,5 @@
-from flask import Flask, render_template,request
-from database import get_products, fetch_sales
+from flask import Flask, render_template,request,redirect,url_for
+from database import get_products, fetch_sales, insert_products
 
 # Flask instance
 app = Flask(__name__)
@@ -13,17 +13,19 @@ def home():
 @app.route("/products")
 def products():
     products = get_products()
-    return render_template("products.html", products =products)
+    return render_template("products.html", products=products)
 
 
-
-
-@app.route('/add_products',methods=['GET','POST'])
+@app.route("/add_products", methods=["GET", "POST"])
 def add_products():
-    if request.method =='POST':
-        product_name = request.form['p_name']
-        buying_price = request.form['b_price']
-        selling_price = request.form['s_price']
+    if request.method == "POST":
+        product_name = request.form["p_name"]
+        buying_price = request.form["b_price"]
+        selling_price = request.form["s_price"]
+
+        new_product = (product_name, buying_price, selling_price)
+        insert_products(new_product)
+        print("Product Added successfully")
 
 
 @app.route("/sales")
@@ -50,7 +52,7 @@ def register():
 
 @app.route("/stock")
 def stock():
-    return render_template("stock.html") 
+    return render_template("stock.html")
 
 
 app.run(debug=True)
