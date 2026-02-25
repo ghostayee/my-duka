@@ -3,7 +3,7 @@
 {% block content %}
 <div>
     <h2 class="text-success text-center fw-bold">SALES</h2>
-    <p>
+    <p class="mx-5">
         The Sales page provides a clear snapshot of all transactions, helping you track performance and revenue in real
         time. Each record displays the product sold, quantity, price, and customer details in a structured table format.
         Green highlights mark successful transactions, while faint green accents guide the eye across totals and
@@ -11,7 +11,26 @@
         summaries at the bottom give you insights into trends, helping you make smarter business decisions.
     </p>
 </div>
-<div>
-    <p>{{ sales }}</p>
+<div class="container">
+    <table id="example" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Sales Id</th>
+                <th>pid</th>
+                <th>Quantity</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sales in sales %}
+            <tr>
+                <td> {{ sales[0] }}</td>
+                <td>{{ sales[1] }}</td>
+                <td> {{ sales[2] }}</td>
+                <td>{{ sales[3] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
