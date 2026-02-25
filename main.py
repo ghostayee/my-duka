@@ -13,7 +13,7 @@ def home():
 @app.route("/products")
 def products():
     products = get_products()
-    return render_template("products.html", x =products)
+    return render_template("products.html", products =products)
 
 
 @app.route("/sales")
@@ -36,6 +36,11 @@ def login():
 @app.route("/register")
 def register():
     return render_template("register.html")
+
+
+@app.route("/stock")
+def stock():
+    return render_template("stock.html") 
 
 
 app.run(debug=True)
