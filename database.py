@@ -71,7 +71,7 @@ def insert_sale(values):
 
 
 def insert_sale(values):
-    cur.execute(f"insert into sales(pid,quantity)values(3,30)")
+    cur.execute(f"insert into sales(pid,quantity)values(14,30)")
     conn.commit()
 
 

@@ -35,7 +35,7 @@ def sales():
     return render_template("sales.html", sales=sales)
 
 
-@app.route("/add_sales", methods=["POST", "GET"])
+@app.route("/add_sales", methods=["GET", "POST"])
 def add_sales():
     if request.method == "POST":
         product_id = request.form["pid"]
