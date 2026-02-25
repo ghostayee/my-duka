@@ -29,8 +29,9 @@ def get_products():
     return products
 
 
-# products = get_products()
-# print(products)
+products = get_products()
+print(products)
+
 
 
 def insert_products(values):
@@ -79,7 +80,7 @@ def insert_stock(values):
     conn.commit()
 
 
-stock1 = (11, 30)
+stock1 = (13, 90)
 insert_stock(stock1)
 
 
