@@ -29,9 +29,8 @@ def get_products():
     return products
 
 
-products = get_products()
-print(products)
-
+# products = get_products()
+# print(products)
 
 
 def insert_products(values):
@@ -42,7 +41,7 @@ def insert_products(values):
 product1 = ("samsung", 20000, 30000)
 product2 = ("hp", 30000, 40000)
 
-insert_products(product1)
+# insert_products(product1)
 # insert_products(product2)
 
 
@@ -52,8 +51,8 @@ def fetch_sales():
     return sales
 
 
-sales = fetch_sales()
-print(sales)
+# sales = fetch_sales()
+# print(sales)
 
 
 def insert_sale(values):
@@ -61,27 +60,30 @@ def insert_sale(values):
     conn.commit()
 
 
-# sale1 = (3,30)
-# sale2 = (4,12)
+sale1 = (12, 30)
+sale2 = (14, 12)
 
-# insert_sale(sale1)
-# insert_sale(sale2)
+#insert_sale(sale1)
+#insert_sale(sale2)
 
-# print(sales)
+#print(sales1)
 
 
-def insert_sale(values):
-    cur.execute(f"insert into sales(pid,quantity)values(14,30)")
-    conn.commit()
+def fetch_stock():
+    cur.execute("select * from stock")
+    stock = cur.fetchall()
+    return stock
 
+stock = fetch_stock()
+print(stock)
 
 def insert_stock(values):
     cur.execute("insert into stock(pid,stock_quantity)values(%s,%s)", (11, 30))
     conn.commit()
 
 
-stock1 = (13, 90)
-insert_stock(stock1)
+#stock1 = (13, 90)s
+#insert_stock(stock1)
 
 
 def get_stock():
@@ -90,8 +92,8 @@ def get_stock():
     return stock
 
 
-stock_data = get_stock()
-print("this is stock", stock_data)
+#stock_data = get_stock()
+#print("this is stock", stock_data)
 
 
 def get_sales_per_product():
