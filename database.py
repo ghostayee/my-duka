@@ -63,10 +63,10 @@ def insert_sale(values):
 sale1 = (12, 30)
 sale2 = (14, 12)
 
-#insert_sale(sale1)
-#insert_sale(sale2)
+# insert_sale(sale1)
+# insert_sale(sale2)
 
-#print(sales1)
+# print(sales1)
 
 
 def fetch_stock():
@@ -74,17 +74,9 @@ def fetch_stock():
     stock = cur.fetchall()
     return stock
 
-#stock = fetch_stock()
-#print(stock)
 
-def insert_stock(values):
-    cur.execute(f"insert into stock(pid,stock_quantity)values{values}")
-    conn.commit()
-
-
-stock1 = (13, 90)
-stock2 = (15, 60)
-#insert_stock(stock1)
+# stock = fetch_stock()
+# print(stock)
 
 
 def get_stock():
@@ -93,8 +85,18 @@ def get_stock():
     return stock
 
 
-#stock_data = get_stock()
-#print("this is stock", stock_data)
+# stock_data = get_stock()
+# print("this is stock", stock_data)
+
+
+def insert_stock(values):
+    cur.execute(f"insert into stock(pid,stock_quantity)values{values}")
+    conn.commit()
+
+
+stock1 = (13, 90)
+stock2 = (15, 60)
+# insert_stock(stock1)
 
 
 def get_sales_per_product():
