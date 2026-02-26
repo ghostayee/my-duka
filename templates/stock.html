@@ -12,6 +12,19 @@
         critical levels. With simple controls to update quantities or add new stock, this page ensures your business
         runs smoothly and efficiently</p>
 </div>
+<div class="m-3">
+    <form method="post" action="/insert_stock">
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">product Id</label>
+            <input type="number" name="product" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Stock Quantity</label>
+            <input type="number" name="stock" class="form-control" id="exampleInputPassword1">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 <div class="container">
     <table id="example" class="table table-striped">
         <thead>

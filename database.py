@@ -74,15 +74,16 @@ def fetch_stock():
     stock = cur.fetchall()
     return stock
 
-stock = fetch_stock()
-print(stock)
+#stock = fetch_stock()
+#print(stock)
 
 def insert_stock(values):
-    cur.execute("insert into stock(pid,stock_quantity)values(%s,%s)", (11, 30))
+    cur.execute(f"insert into stock(pid,stock_quantity)values{values}")
     conn.commit()
 
 
-#stock1 = (13, 90)s
+stock1 = (13, 90)
+stock2 = (15, 60)
 #insert_stock(stock1)
 
 

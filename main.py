@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from database import get_products, fetch_sales, insert_products, insert_sale
+from database import get_products, fetch_sales, insert_products, insert_sale, fetch_stock, insert_stock
 
 # Flask instance
 app = Flask(__name__)
@@ -64,7 +64,23 @@ def register():
 
 @app.route("/stock")
 def stock():
-    return render_template("stock.html")
+    stock = fetch_stock()
+    return render_template("stock.html", stock=stock)
+
+
+
+@app.route("/insert_stock", methods =["GET","POST"])
+def insert_stock():
+    if request.method == "POST":
+        product_id = request.form["product"]
+        stock_quantity = request.form["stock"]
+
+        new_stock = (product_id, stock_quantity)
+        insert_stock(new_stock)
+        print("Stock Updated successfully")
+    return redirect(url_for("stock"))
+
+
 
 
 app.run(debug=True)
