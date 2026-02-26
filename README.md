@@ -558,13 +558,24 @@ Form Checklist in data insertion
 -> PUT - update an existing resource
 -> DELETE - get rid of a resource
 
-2.action attribute action - determines the route in which form data is submitted - in what route is my form data submitted and processed 
+2.action attribute action - determines the route in which form data is submitted - in what route is my form data submitted and processed
 
-3.name attribute N/B -> Data sent from the form is sent in key-value pairs -> The server needs to know from what input each value came from -> The server uses the key to extract form data filled by the user --> This key is defined by the value of the name attribute 4.input type - determines what data type is filled in an input 5.button -of type submit
+3.name attribute N/B -> Data sent from the form is sent in key-value pairs -> The server needs to know from what input each value came from
+-> The server uses the key to extract form data filled by the user
+--> This key is defined by the value of the name attribute
+
+4.input type - determines what data type is filled in an input 5.button -of type submit
 
 "p_name":eggs "b_price":15 "s_price":20
 
-Workflow to insert data 1.User is provided with a form 2.User fills and submits the form 3.Form is submitted to the route specified in action -> the route needs to have methods = ['GET','POST'] - defines what a server can do in this route 4.Form data is extracted by a request object -> request object has access to some methods: => request.method : determines what method is used in the form => request.form : extracts form data from the form using its key(from name attribute)
+Workflow to insert data
+1.User is provided with a form
+2.User fills and submits the form
+3.Form is submitted to the route specified in action
+-> the route needs to have methods = ['GET','POST'] - defines what a server can do in this route
+4.Form data is extracted by a request object
+-> request object has access to some methods:
+=> request.method : determines what method is used in the form => request.form : extracts form data from the form using its key(from name attribute)
 5.Data is processed and inserted into your db 6.User is redirected redirect - take a user to another resource redirect() - takes as a parameter another function called url_for => redirect(url_for('name of view function ')) redirect(url_for('products')) 7.Server gives a feedback on the process. status code - special numbers that communicate server actions Categories of status codes 100 - 199 => general informational responses 200 - 299 => successful responses 300 - 399 => redirection messages 400 - 499 => client error 500 - 599 = server error
 
 TASK -> Post sales using a sales form, confirm sales data reflects in sales table

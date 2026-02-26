@@ -70,7 +70,7 @@ def stock():
 
 
 @app.route("/insert_stock", methods =["GET","POST"])
-def insert_stock():
+def insert_stocks():
     if request.method == "POST":
         product_id = request.form["product"]
         stock_quantity = request.form["stock"]
