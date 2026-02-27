@@ -46,7 +46,7 @@ def sales():
 @app.route("/add_sales", methods=["GET", "POST"])
 def add_sales():
     if request.method == "POST":
-        product_id = request.form["pid"]
+        product_id = request.form["products"]
         quantity = request.form["quantity"]
 
         new_sale = (product_id, quantity)
