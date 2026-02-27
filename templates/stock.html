@@ -31,21 +31,23 @@
                     <div class="m-3">
                         <form method="post" action="/insert_stock">
                             <div class="mb-3">
-                                <select class="form-select" aria-label="Default select example" name="pid">
-                                    <option selected>Select Product</option>
-                                    {% for product in products %}
-                                    <option value="{{ product[0] }}"> {{ product[1] }} </option> ovacado - 1
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Stock Quantity</label>
-                                <input type="number" name="stock" class="form-control" id="exampleInputPassword1">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Add Stock</button>
-                            </div>
+                                <div class="mb-3">
+                                    <select class="form-select" aria-label="Default select example" name="product">
+                                        <option selected>Select Product</option>
+                                        {% for product in products %}
+                                        <option value="{{ product[0] }}"> {{ product[1] }} </option> Gear Kit - 23
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Stock Quantity</label>
+                                    <input type="number" name="stock" class="form-control" id="exampleInputPassword1">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success">Add Stock</button>
+                                </div>
                         </form>
                     </div>
                 </div>
