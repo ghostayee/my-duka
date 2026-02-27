@@ -38,8 +38,9 @@ def add_products():
 
 @app.route("/sales")
 def sales():
+    products = get_products()
     sales = fetch_sales()
-    return render_template("sales.html", sales=sales)
+    return render_template("sales.html", products=products,sales=sales)
 
 
 @app.route("/add_sales", methods=["GET", "POST"])
