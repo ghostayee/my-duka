@@ -579,3 +579,49 @@ Workflow to insert data
 5.Data is processed and inserted into your db 6.User is redirected redirect - take a user to another resource redirect() - takes as a parameter another function called url_for => redirect(url_for('name of view function ')) redirect(url_for('products')) 7.Server gives a feedback on the process. status code - special numbers that communicate server actions Categories of status codes 100 - 199 => general informational responses 200 - 299 => successful responses 300 - 399 => redirection messages 400 - 499 => client error 500 - 599 = server error
 
 TASK -> Post sales using a sales form, confirm sales data reflects in sales table
+"p_name":eggs "b_price":15 "s_price":20
+
+Workflow to insert data 1.User is provided with a form 2.User fills and submits the form 3.Form is submitted to the route specified in action -> the route needs to have methods = ['GET','POST'] - defines what a server can do in this route 4.Form data is extracted by a request object -> request object has access to some methods: => request.method : determines what method is used in the form => request.form : extracts form data from the form using its key(from name attribute)
+5.Data is processed and inserted into your db 6.User is redirected redirect - take a user to another resource redirect() - takes as a parameter another function called url_for => redirect(url_for('name of view function ')) redirect(url_for('products')) 7.Server gives a feedback on the process. status code - special numbers that communicate server actions Categories of status codes 100 - 199 => general informational responses 200 - 299 => successful responses 300 - 399 => redirection messages 400 - 499 => client error 500 - 599 = server error
+
+TASK -> Post sales using a sales form, confirm sales data reflects in sales table
+
+1.Insert stock using a form and display stock in a datatable Hint: Inserting and displaying stock is EXACTLY like sales
+
+@app.route('/ add_stock',methods=['GET','POST']) def add_stock(): if request.method == 'POST': product_name = request.form['pid'] quantity = request.form['quantity'] price = request.form['price'] new_stock = (product_name,quantity,price) insert_stock(new_stock) print("Stock added successfully") return redirect(url_for('stock'))
+
+Task 1.Have the add product form inside a modal 2.For sales , have the add sale form inside a modal -Modify the pid input to a select menu displaying products as executed in stock -Confirm you can see both sales and stock data in a datatable
+
+3.Write a query in database.py to:
+
+check for enough stock
+insert users
+MAKING PURCHASES 1.Adding a product - have product details (name, b_price,s_price) 2.Add stock on a product e.g. bread - 100 3.Attempt making a sale - select a product and input quantity 4.If quantity to be sold > stock quantity => insufficient stock 5.If quantity < stock quantity => complete sale => quantity is reduced
+
+sales table id | pid | quantity | created_at
+----+-----+----------+---------------------------- 11 | 1 | 20 | 2026-02-16 15:01:32.01184 12 | 2 | 10 | 2026-02-16 15:01:39.628083
+
+stock table id | pid | stock_quantity | created_at
+----+-----+----------------+---------------------------- 6 | 1 | 30 | 2026-02-17 14:50:58.498359 6 | 1 | 20 | 2026-02-18 14:50:58.498359\
+
+pid 1 => total stock in = 50 : total out = 20 => 30 40
+
+cur.fetchall() -> list of tuples => [(490,)] cur.fetchone() -> tuple => (490,)
+
+2 -> milk -> 50 -> 60 => 0,0,
+
+0 -> a real number -> 10 - 10 = 0 null / none -> doesnt exist
+
+none - none
+
+DATA VISUALIZATION -> presenting complex data is a simple manner using visual aids for better interpretation -> charts =>
+
+sales_per_day - sales , day profit_per_day - profit , day => sales , profit , day
+
+profit_per_product - product name , profit sales_per_product - product name, sales => sales,profit ,product name
+
+LIST COMPREHENSION
+
+TASK 1.Create the following forms - get from Bootstrap: register form => with inputs => full name, email, phone number, password login form => with inputs => email,password
+
+2.Write a function called insert_user() in database.py with a query to insert users into users table
