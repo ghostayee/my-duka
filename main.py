@@ -6,6 +6,11 @@ from database import (
     insert_sale,
     fetch_stock,
     insert_stock,
+    available_stock,
+    get_sales_per_day,
+    get_profit_per_day,
+    get_profit_per_product,
+    get_sales_per_product,
 )
 
 # Flask instance
@@ -40,7 +45,7 @@ def add_products():
 def sales():
     products = get_products()
     sales = fetch_sales()
-    return render_template("sales.html", products=products,sales=sales)
+    return render_template("sales.html", products=products, sales=sales)
 
 
 @app.route("/add_sales", methods=["GET", "POST"])
@@ -50,23 +55,23 @@ def add_sales():
         quantity = request.form["quantity"]
 
         new_sale = (product_id, quantity)
+        check_stock = available_stock(product_id)
+        if float(quantity) > check_stock:
+            print("Insufficient stock,cant complete sale")
+            return redirect
         insert_sale(new_sale)
         print("Sale Uploaded successfully")
     return redirect(url_for("sales"))
-
-
-
 
 
 @app.route("/stock")
 def stock():
     products = get_products()
     stock = fetch_stock()
-    return render_template("stock.html",products=products, stock=stock)
+    return render_template("stock.html", products=products, stock=stock)
 
 
-
-@app.route("/insert_stock", methods =["GET","POST"])
+@app.route("/insert_stock", methods=["GET", "POST"])
 def insert_stocks():
     if request.method == "POST":
         product_id = request.form["product"]
@@ -80,7 +85,18 @@ def insert_stocks():
 
 @app.route("/dashboard")
 def dashboard():
-    return render_template("dashboard.html")
+    sales_per_day = get_sales_per_day()
+    profit_per_day = get_profit_per_day()
+    sales_per_product = get_sales_per_product()
+    profit_per_product = get_profit_per_product()
+
+    day = [i[0] for i in sales_per_day]
+    sales_day = [i[1] for i in sales_per_day]
+    profit_day = [i[1] for i in profit_per_day]
+
+    return render_template(
+        "dashboard.html", day=day, sales_day=sales_day, profit_per_product=profit_per_product
+    )
 
 
 @app.route("/login")
@@ -91,9 +107,6 @@ def login():
 @app.route("/register")
 def register():
     return render_template("register.html")
-
-
-
 
 
 app.run(debug=True)
