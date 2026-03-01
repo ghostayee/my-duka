@@ -1,31 +1,48 @@
 {% extends 'base.html' %}
 {% block title %} Register part {% endblock %}
 {% block content %}
-<div class="container my-5">
-    <h2 class="text-center text-success">Register</h2>
-</div>
-<div class="container p-4">
-    <form>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label fw-bold">Full Name</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+<div>
+    <div class="row">
+        <div class="col-md-6 p-5 bg-success rounded-5 text-center">
+            <h2>welcome</h2>
+            <p>Please login to continue.</p>
+            <p>
+                <span class="bg-light rounded-3 p-2">No Account?</span>
+                click to sign up
+            </p>
+            <a href="/register"><button type="button"
+                    class="btn btn-outline-light text-dark rounded-5 fw-bold mt-4">Sign
+                    up!</button></a>
         </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label fw-bold">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+
+        <div class="col-md-6 container p-4">
+            <div class="container my-5">
+                <h2 class="text-center text-success">Register</h2>
+            </div>
+            <form>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Full Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label fw-bold">Phone Number</label>
+                    <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label fw-bold">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success fw-bold">Sign Up</button>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label fw-bold">Phone Number</label>
-            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label fw-bold">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
-        </div>
-        <div class="text-center">
-            <button type="submit" class="btn btn-success fw-bold">Sign Up</button>
-        </div>
-    </form>
+    </div>
 </div>
 
 
