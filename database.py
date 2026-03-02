@@ -168,7 +168,9 @@ def available_stock(pid):
 
     return total_stock - total_sold
 
-def create_user("full_name,email,phone_number,password)values(%s,%s,%s,%s)" values)
+def create_user(values):
+    cur.execute("insert into users(full_name,email,phone_number,password)values(%s,%s,%s,%s)",values)
+    onn.commit()
 
 
 
