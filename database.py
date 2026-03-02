@@ -167,3 +167,12 @@ def available_stock(pid):
     total_sold = cur.fetchone()[0] or 0
 
     return total_stock - total_sold
+
+def create_user("full_name,email,phone_number,password)values(%s,%s,%s,%s)" values)
+
+
+
+def check_user(email):
+    cur.execute("select * from users where email = %s",(email,))
+    user_data = cur.fetchone()
+    return user_data

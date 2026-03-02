@@ -11,10 +11,15 @@ from database import (
     get_profit_per_day,
     get_profit_per_product,
     get_sales_per_product,
+    create_user,
+    check_user
 )
+from flask_bcrypt import Bcrypt
 
 # Flask instance
 app = Flask(__name__)
+
+bcrypt = Bcrypt(app)
 
 
 @app.route("/")
@@ -95,7 +100,10 @@ def dashboard():
     profit_day = [float(i[1]) for i in profit_per_day]
 
     return render_template(
-        "dashboard.html", day=day, sales_day=sales_day, profit_per_product=profit_per_product
+        "dashboard.html",
+        day=day,
+        sales_day=sales_day,
+        profit_per_product=profit_per_product,
     )
 
 
@@ -104,8 +112,23 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/register",methods=['GET','POST'])
+@app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        full_name = request.form["name"]
+        email = request.form["email"]
+        phone_number = request.form["phone"]
+        password = request.form["password"]
+        existing_user = check_user(email)
+        if not existing_user:
+            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+            new_user = (full_name,email,phone_number,hashed_password)
+            create_user(new_user)
+            print("user created successfully")
+            return redirect(url_for('login'))
+        else:
+            print("user exists, please login")
+
     return render_template("register.html")
 
 
