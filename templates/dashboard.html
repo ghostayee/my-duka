@@ -47,12 +47,12 @@
         data: {
             labels: {{ day | safe }},
             datasets: [{
-                data: {{ sales_day }},
+                data: {{ sales_day | safe }},
                 label: "Sales",
                 borderColor: "#3e95cd",
                 fill: false
             }, {
-                data: {{ profit_day }},
+                data: {{ profit_day | safe }},
                 label: "Profit",
                 borderColor: "#8e5ea2",
                 fill: false

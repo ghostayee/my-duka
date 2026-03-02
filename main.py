@@ -12,7 +12,7 @@ from database import (
     get_profit_per_product,
     get_sales_per_product,
     create_user,
-    check_user
+    check_user,
 )
 from flask_bcrypt import Bcrypt
 
@@ -99,11 +99,18 @@ def dashboard():
     sales_day = [float(i[1]) for i in sales_per_day]
     profit_day = [float(i[1]) for i in profit_per_day]
 
+    product_name = [i[0] for i in sales_per_product]
+    sales_product = [float(i[1]) for i in sales_per_product]
+    profit_product = [float(i[1]) for i in profit_per_product]
+
     return render_template(
         "dashboard.html",
         day=day,
         sales_day=sales_day,
-        profit_per_product=profit_per_product,
+        profit_day=profit_day,
+        product_name=product_name,
+        sales_product=sales_product,
+        profit_product=profit_product,
     )
 
 
@@ -121,11 +128,11 @@ def register():
         password = request.form["password"]
         existing_user = check_user(email)
         if not existing_user:
-            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-            new_user = (full_name,email,phone_number,hashed_password)
+            hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
+            new_user = (full_name, email, phone_number, hashed_password)
             create_user(new_user)
             print("user created successfully")
-            return redirect(url_for('login'))
+            return redirect(url_for("login"))
         else:
             print("user exists, please login")
 

@@ -170,7 +170,7 @@ def available_stock(pid):
 
 def create_user(values):
     cur.execute("insert into users(full_name,email,phone_number,password)values(%s,%s,%s,%s)",values)
-    onn.commit()
+    conn.commit()
 
 
 
