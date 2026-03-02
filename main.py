@@ -90,9 +90,9 @@ def dashboard():
     sales_per_product = get_sales_per_product()
     profit_per_product = get_profit_per_product()
 
-    day = [i[0] for i in sales_per_day]
-    sales_day = [i[1] for i in sales_per_day]
-    profit_day = [i[1] for i in profit_per_day]
+    day = [str(i[0]) for i in sales_per_day]
+    sales_day = [float(i[1]) for i in sales_per_day]
+    profit_day = [float(i[1]) for i in profit_per_day]
 
     return render_template(
         "dashboard.html", day=day, sales_day=sales_day, profit_per_product=profit_per_product
@@ -104,7 +104,7 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/register")
+@app.route("/register",methods=['GET','POST'])
 def register():
     return render_template("register.html")
 
