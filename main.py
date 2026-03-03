@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for,flash
 from database import (
     get_products,
     fetch_sales,
@@ -13,11 +13,13 @@ from database import (
     get_sales_per_product,
     create_user,
     check_user,
-)
+    )
 from flask_bcrypt import Bcrypt
 
 # Flask instance
 app = Flask(__name__)
+
+app.secret_key = "ttyiejjssgssfagsfsfsc"
 
 bcrypt = Bcrypt(app)
 
@@ -42,7 +44,7 @@ def add_products():
 
         new_product = (product_name, buying_price, selling_price)
         insert_products(new_product)
-        print("Product Added successfully")
+        flash("product added successfully",'success')
     return redirect(url_for("products"))
 
 
@@ -122,7 +124,7 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        full_name = request.form["name"]
+        full_name = request.form["full_name"]
         email = request.form["email"]
         phone_number = request.form["phone"]
         password = request.form["password"]
