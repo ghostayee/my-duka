@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for,flash
+from flask import Flask, render_template, request, redirect, url_for,flash,session
 from database import (
     get_products,
     fetch_sales,
@@ -15,6 +15,7 @@ from database import (
     check_user,
     )
 from flask_bcrypt import Bcrypt
+from functools import wraps
 
 # Flask instance
 app = Flask(__name__)
@@ -27,6 +28,16 @@ bcrypt = Bcrypt(app)
 @app.route("/")
 def home():
     return render_template("index.html")
+
+
+def login_required(f):
+    @wraps(f)
+    def protected(*args,**kwargs):
+        if 'email' not in session:
+            return redirect(url_for('login'))
+        return f(*args,**kwargs)
+    return protected
+
 
 
 @app.route("/products")
@@ -49,6 +60,7 @@ def add_products():
 
 
 @app.route("/sales")
+@login_required
 def sales():
     products = get_products()
     sales = fetch_sales()
@@ -72,6 +84,7 @@ def add_sales():
 
 
 @app.route("/stock")
+@login_required
 def stock():
     products = get_products()
     stock = fetch_stock()
@@ -91,6 +104,7 @@ def insert_stocks():
 
 
 @app.route("/dashboard")
+@login_required
 def dashboard():
     sales_per_day = get_sales_per_day()
     profit_per_day = get_profit_per_day()
@@ -116,8 +130,23 @@ def dashboard():
     )
 
 
-@app.route("/login")
+@app.route("/login",methods=['GET','POST'])
 def login():
+    if request.method == 'POST':
+        print("test")
+        email = request.form['email']
+        password = request.form['password']
+        
+        existing_user = check_user(email)
+        if not existing_user:
+            flash("user does not exist.please register",'danger')
+        else:
+            if bcrypt.check_password_hash(existing_user[-1],password):
+                flash("login successful",'success')
+                session['email'] = email
+                return redirect(url_for('dashboard'))
+            else:
+                flash("password incorrect",'danger')
     return render_template("login.html")
 
 
@@ -139,6 +168,12 @@ def register():
             print("user exists, please login")
 
     return render_template("register.html")
+
+@app.route('/logout')
+def logout():
+    session.pop('email',None)
+    flash("Logged out successfully",'success')
+    return redirect(url_for('login'))
 
 
 app.run(debug=True)

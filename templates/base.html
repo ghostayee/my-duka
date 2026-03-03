@@ -38,12 +38,16 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                             </li>
+
+                            {% if not session.email %}
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="/register">Register</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="/login">Login</a>
                             </li>
+
+                            {% else %}
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="/products">Products</a>
                             </li>
@@ -56,12 +60,31 @@
                             <li class="nav-item">
                                 <a class="nav-link text-light" href="/dashboard">Dashboard</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="/logout">Logout</a>
+                            </li>
+
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
 
+
+
+        <div>
+            {% with messages= get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{category}} alert-dismissible" role="alert">
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
 
         {% block content %}
 

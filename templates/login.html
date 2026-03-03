@@ -17,12 +17,12 @@
 
         <div class="col-md-6 p-5 rounded-5">
             <h2 class="text-success">login</h2>
-            <form action="">
+            <form method="post" action="/login">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1"
+                <input type="email" name="email" class="form-control" id="exampleInputEmail1"
                     aria-describedby="emailHelp">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1">
                 <button type="submit" class="btn btn-success mb-4 mt-3">Login</button>
             </form>
         </div>
