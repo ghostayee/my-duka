@@ -3,11 +3,24 @@
 {% block content %}
 <div>
     <div>
-        <p>this is dashboard</p>
+        <div class="m-4 text-success text-center">
+            <h2 class="fw-bold">
+                The Statistics
+            </h2>
+        </div>
+        <div class="container">
+            <p>
+                The Dashboard provides a quick, visual snapshot of your business performance. Key metrics such as total
+                sales, revenue, active orders, and stock levels are displayed in clean charts and counters with faint
+                green highlights for clarity. Bold green accents emphasize growth trends, while black text ensures
+                readability. This section is designed to give you instant insights at a glance, helping you track
+                progress, identify patterns, and make informed decisions without digging through detailed reports.
+            </p>
+        </div>
     </div>
 
 
-    <div>
+    <div class="container m-4">
         <div>
             <canvas id="bar-chart-grouped" width="800" height="450"></canvas>
         </div>
@@ -21,24 +34,24 @@
         type: 'bar',
         data: {
             labels: {{ product_name | safe }},
-            datasets: [
-                {
-                    label: "Sales",
-                    backgroundColor: "#3e95cd",
-                    data:{{ sales_product | safe}}
+        datasets: [
+        {
+            label: "Sales",
+            backgroundColor: "#3e95cd",
+            data: {{ sales_product | safe}}
                 }, {
-                    label: "Profit",
-                    backgroundColor: "#8e5ea2",
-                    data: {{ sales_product | safe}}
+            label: "Profit",
+            backgroundColor: "#8e5ea2",
+            data: {{ sales_product | safe}}
                 }
-            ]
+    ]
         },
         options: {
-            title: {
-                display: true,
-                text: 'Sales & Profit per Product (ksh.)'
-            }
+        title: {
+            display: true,
+            text: 'Sales & Profit per Product (ksh.)'
         }
+    }
     });
 
     //line chart
@@ -46,25 +59,25 @@
         type: 'line',
         data: {
             labels: {{ day | safe }},
-            datasets: [{
-                data: {{ sales_day | safe }},
-                label: "Sales",
-                borderColor: "#3e95cd",
-                fill: false
+        datasets: [{
+            data: {{ sales_day | safe }},
+        label: "Sales",
+        borderColor: "#3e95cd",
+        fill: false
             }, {
-                data: {{ profit_day | safe }},
-                label: "Profit",
-                borderColor: "#8e5ea2",
-                fill: false
+            data: {{ profit_day | safe }},
+        label: "Profit",
+        borderColor: "#8e5ea2",
+        fill: false
             },
-            ]
+    ]
         },
         options: {
-            title: {
-                display: true,
-                text: 'Profit per Day (ksh.)'
-            }
+        title: {
+            display: true,
+            text: 'Profit per Day (ksh.)'
         }
+    }
     });
 </script>
 
