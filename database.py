@@ -168,13 +168,16 @@ def available_stock(pid):
 
     return total_stock - total_sold
 
+
 def create_user(values):
-    cur.execute("insert into users(full_name,email,phone_number,password)values(%s,%s,%s,%s)",values)
+    cur.execute(
+        "insert into users(full_name,email,phone_number,password)values(%s,%s,%s,%s)",
+        values,
+    )
     conn.commit()
 
 
-
 def check_user(email):
-    cur.execute("select * from users where email = %s",(email,))
+    cur.execute("select * from users where email = %s", (email,))
     user_data = cur.fetchone()
     return user_data

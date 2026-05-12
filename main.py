@@ -76,8 +76,8 @@ def add_sales():
         new_sale = (product_id, quantity)
         check_stock = available_stock(product_id)
         if float(quantity) > check_stock:
-            print("Insufficient stock,cant complete sale")
-            return redirect
+            flash("Out off stock cant upload the sale","primary")
+            return redirect(url_for("sales"))
         insert_sale(new_sale)
         print("Sale Uploaded successfully")
     return redirect(url_for("sales"))
@@ -136,7 +136,6 @@ def login():
         print("test")
         email = request.form['email']
         password = request.form['password']
-        
         existing_user = check_user(email)
         if not existing_user:
             flash("user does not exist.please register",'danger')
